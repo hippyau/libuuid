@@ -32,9 +32,19 @@ AC_TYPE_UINT16_T
 AC_TYPE_UINT32_T
 AC_TYPE_UINT64_T
 AC_TYPE_UINT8_T
+AC_CHECK_TYPES([loff_t], [], [], [[#include <sys/types.h>]])
 
 # Checks for library functions.
-AC_CHECK_FUNCS([ftruncate gettimeofday memset socket strtoul usleep srandom])
+AC_CHECK_FUNCS([ftruncate gettimeofday memset socket strtoul usleep srandom getuid])
+
+# Check for operating system
+AC_MSG_CHECKING([whether we need platform-specific build settings])
+case $host_os in
+  mingw32*|*msys*)
+        LDFLAGS+=" -no-undefined"
+        CFLAGS+=" -D_WIN32"
+        ;;
+esac
 
 dnl version details from <major>.<minor>.<release>
 PACKAGE_VERSION_MAJOR=$(echo $PACKAGE_VERSION | awk -F. '{print $1}')

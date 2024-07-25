@@ -13,9 +13,15 @@
 #include <string.h>
 #include <sys/time.h>
 
+#ifdef HAVE_CONFIG_H
+#include "config.h"
+#endif
+
 #ifndef _WIN32
 #include <sys/syscall.h>
-#else
+#endif
+
+#ifndef HAVE_GETUID
 static int getuid (void)
 {
 	return 1;

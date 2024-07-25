@@ -35,6 +35,12 @@
 #ifndef _UUID_UUID_H
 #define _UUID_UUID_H
 
+#ifdef uuid_t
+#undef uuid_t //screw you windows!!!!!
+#endif
+
+#define uuid_t uuid_t //screw you windows!!!!!
+
 #include <sys/types.h>
 #ifndef _WIN32
 #include <sys/time.h>
